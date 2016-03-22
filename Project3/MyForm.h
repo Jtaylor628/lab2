@@ -1,5 +1,5 @@
 #pragma once
-
+#include "PicLoaction.h"
 namespace Project3 {
 
 	using namespace System;
@@ -8,6 +8,9 @@ namespace Project3 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	
+	PicLocation Loc1;
+
 
 	/// <summary>
 	/// Summary for MyForm
@@ -48,6 +51,9 @@ namespace Project3 {
 	private: System::Windows::Forms::Button^  button2;
 	private: System::Windows::Forms::Button^  button3;
 	private: System::Windows::Forms::Button^  button4;
+	private: System::Windows::Forms::Panel^  panel1;
+
+	private: System::Windows::Forms::Button^  button6;
 
 			 /// <summary>
 		/// Required designer variable.
@@ -66,7 +72,10 @@ namespace Project3 {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->button6 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// button1
@@ -81,7 +90,7 @@ namespace Project3 {
 			// 
 			// pictureBox1
 			// 
-			this->pictureBox1->Location = System::Drawing::Point(193, 12);
+			this->pictureBox1->Location = System::Drawing::Point(314, 132);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(214, 179);
 			this->pictureBox1->TabIndex = 1;
@@ -96,19 +105,21 @@ namespace Project3 {
 			this->button2->TabIndex = 2;
 			this->button2->Text = L"Down";
 			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(491, 300);
+			this->button3->Location = System::Drawing::Point(546, 300);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(75, 23);
 			this->button3->TabIndex = 3;
 			this->button3->Text = L"Right";
 			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(521, 343);
+			this->button4->Location = System::Drawing::Point(546, 339);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(75, 23);
 			this->button4->TabIndex = 4;
@@ -116,28 +127,52 @@ namespace Project3 {
 			this->button4->UseVisualStyleBackColor = true;
 			this->button4->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
 			// 
+			// panel1
+			// 
+			this->panel1->Controls->Add(this->pictureBox1);
+			this->panel1->Location = System::Drawing::Point(12, 12);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(528, 429);
+			this->panel1->TabIndex = 5;
+			// 
+			// button6
+			// 
+			this->button6->Location = System::Drawing::Point(546, 144);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(75, 23);
+			this->button6->TabIndex = 7;
+			this->button6->Text = L"show/ hide";
+			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(633, 453);
+			this->Controls->Add(this->button6);
+			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button2);
-			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->button1);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			this->panel1->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+
+
 		//yelloBrush = gcnew Drawing::SolidBrush(Color::Yellow);
 		g = pictureBox1->CreateGraphics();
-
+		Bitmap^ bmp = gcnew Bitmap(L"dwceagles2.bmp");
+		g->DrawImage(bmp, 0, 0);
+		
 		//create four objects
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -145,27 +180,72 @@ namespace Project3 {
 		
 
 		//load bmp into picture box
-		Bitmap^ bmp = gcnew Bitmap(L"tiger.bmp");
+		Bitmap^ bmp = gcnew Bitmap(L"dwceagles2.bmp");
 		g->DrawImage(bmp, 0, 0);
 
 		//
-		int x = 100, y = 0;
-		pictureBox1->Location = Point(x,y);
+		//int x = 100, y = 0;
+		Loc1.setx(155);
+		Loc1.sety(3);
+		pictureBox1->Location = Point(Loc1.getx(), Loc1.gety());
+		//panel1->Refresh();
+		//g->DrawImage(bmp);
+
 	}
 	private: System::Void pictureBox1_Click(System::Object^  sender, System::EventArgs^  e) {
 
 
 	}
 	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-
-		//load bmp into picture box
-		Bitmap^ bmp = gcnew Bitmap(L"tiger.bmp");
+		Bitmap^ bmp = gcnew Bitmap(L"dwceagles2.bmp");
 		g->DrawImage(bmp, 0, 0);
 
 		//
-		int x = 0, y = 100;
-		pictureBox1->Location = Point(x, y);
-
+		//int x = 100, y = 0;
+		Loc1.setx(3);
+		Loc1.sety(114);
+		pictureBox1->Location = Point(Loc1.getx(), Loc1.gety());
+		//panel1->Refresh();
+		//g->DrawImage(bmp);
+		
 	}
+private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+	Bitmap^ bmp = gcnew Bitmap(L"dwceagles2.bmp");
+	g->DrawImage(bmp, 0, 0);
+
+	//
+	//int x = 100, y = 0;
+	Loc1.setx(155);
+	Loc1.sety(247);
+	pictureBox1->Location = Point(Loc1.getx(), Loc1.gety());
+	//panel1->Refresh();
+	//g->DrawImage(bmp);
+}
+private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
+	Bitmap^ bmp = gcnew Bitmap(L"dwceagles2.bmp");
+	g->DrawImage(bmp, 0, 0);
+
+	//
+	//int x = 100, y = 0;
+	Loc1.setx(314);
+	Loc1.sety(114);
+	pictureBox1->Location = Point(Loc1.getx(), Loc1.gety());
+	//panel1->Refresh();
+	//g->DrawImage(bmp);
+}
+private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
+	Bitmap^ bmp = gcnew Bitmap(L"dwceagles2.bmp");
+	panel1->Refresh();
+	g->DrawImage(bmp, 0, 0);
+	
+}
+private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
+	
+	pictureBox1->Visible = !pictureBox1->Visible;
+	Bitmap^ bmp = gcnew Bitmap(L"dwceagles2.bmp");
+	panel1->Refresh();
+	g->DrawImage(bmp, 0, 0);
+}
 };
+
 }
